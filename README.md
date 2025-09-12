@@ -26,4 +26,3 @@ The project includes both **frontend and backend**, with user authentication per
 
 
 
-

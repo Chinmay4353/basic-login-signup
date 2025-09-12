@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up | Beautiful Account Creation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .signup-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: cardAppear 0.8s ease;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: bounceIn 1s ease;
+        }
+        
+        .logo i {
+            font-size: 50px;
+            color: #ff9a9e;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 32px;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s infinite alternate;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+            animation: slideIn 0.8s ease;
+        }
+        
+        .input-group:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .input-group:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+            border: 2px solid transparent;
+        }
+        
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ff9a9e;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus + i {
+            color: #ff9a9e;
+            transform: translateY(-50%) scale(1.2);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #fad0c4, #ff9a9e);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .login-link a {
+            color: #ff9a9e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+            color: #fad0c4;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes cardAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(50px) rotateX(10deg);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+        
+        @keyframes bounceIn {
+            0% { 
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            60% { 
+                transform: scale(1.1);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: left; }
+            100% { background-position: right; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Particle background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: floatParticle 15s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .signup-card {
+                padding: 30px 25px;
+            }
+            
+            .logo h1 {
+                font-size: 28px;
+            }
+            
+            .input-group input {
+                padding: 14px 20px 14px 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="signup-card">
+            <div class="logo">
+                <i class="fas fa-user-plus"></i>
+                <h1>Create Account</h1>
+            </div>
+            
+            <form action="/signup" method="POST">
+                <div class="input-group">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                
+                <button type="submit" class="submit-btn">Sign Up <i class="fas fa-arrow-right"></i></button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="/login">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 15 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.top = `${posY}vh`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Add form validation and interaction
+            const form = document.querySelector('form');
+            const inputs = document.querySelectorAll('input');
+            
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.style.borderColor = '#ff4757';
+                    }
+                });
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    
+                    // Shake animation for invalid form
+                    form.style.animation = 'shake 0.5s ease';
+                    setTimeout(() => {
+                        form.style.animation = '';
+                    }, 500);
+                }
+            });
+            
+            // Reset border color when user starts typing
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.style.borderColor = '';
+                });
+            });
+            
+            // Add shake animation for form
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    20%, 60% { transform: translateX(-10px); }
+                    40%, 80% { transform: translateX(10px); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

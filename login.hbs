@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 300px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .input-container {
+            position: relative;
+            margin: 8px 0;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #9b59b6;
+            outline: none;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .toggle-password:hover {
+            color: #9b59b6;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #8e44ad;
+        }
+        
+        a {
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #9b59b6;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #8e44ad;
+            text-decoration: underline;
+        }
+        
+        /* Walking man animation */
+        .walking-man {
+            position: absolute;
+            bottom: 0;
+            left: -100px;
+            font-size: 60px;
+            z-index: 1;
+            transition: transform 0.5s;
+            display: none;
+            animation: walk 15s linear infinite;
+        }
+        
+        @keyframes walk {
+            0% {
+                left: -100px;
+            }
+            100% {
+                left: calc(100% + 100px);
+            }
+        }
+        
+        /* Password strength meter */
+        .password-strength {
+            height: 5px;
+            width: 100%;
+            margin-top: 5px;
+            border-radius: 5px;
+            background: #eee;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background 0.3s;
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="walking-man">🚶‍♂️</div>
+    
+    <div class="container">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <div class="input-container">
+                <input type="text" name="name" id="name" placeholder="Name" autocomplete="off">
+            </div>
+            
+            <div class="input-container">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <span class="toggle-password" id="togglePassword">👁️</span>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                </div>
+            </div>
+            
+            <input type="submit" value="Login">
+        </form>
+        <a href="/signup">Create a new account</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.getElementById('name');
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const walkingMan = document.querySelector('.walking-man');
+            const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+            
+            // Show walking man animation when name input is focused
+            nameInput.addEventListener('focus', function() {
+                walkingMan.style.display = 'block';
+                walkingMan.style.animation = 'walk 15s linear infinite';
+            });
+            
+            // Hide walking man when name input loses focus
+            nameInput.addEventListener('blur', function() {
+                walkingMan.style.display = 'none';
+            });
+            
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    togglePassword.textContent = '🔒';
+                } else {
+                    passwordInput.type = 'password';
+                    togglePassword.textContent = '👁️';
+                }
+            });
+            
+            // Password strength indicator
+            passwordInput.addEventListener('input', function() {
+                const password = passwordInput.value;
+                let strength = 0;
+                
+                if (password.length > 0) {
+                    // Length check
+                    if (password.length > 6) strength += 25;
+                    
+                    // Character variety checks
+                    if (/[A-Z]/.test(password)) strength += 25;
+                    if (/[0-9]/.test(password)) strength += 25;
+                    if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+                }
+                
+                // Update strength bar
+                passwordStrengthBar.style.width = strength + '%';
+                
+                // Change color based on strength
+                if (strength < 50) {
+                    passwordStrengthBar.style.background = '#e74c3c';
+                } else if (strength < 75) {
+                    passwordStrengthBar.style.background = '#f39c12';
+                } else {
+                    passwordStrengthBar.style.background = '#2ecc71';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
