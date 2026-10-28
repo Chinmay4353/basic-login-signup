@@ -4,7 +4,7 @@ const path = require('path')
 const hbs = require('hbs')
 const collection = require('./mongodb')
 
-const templatePath = path.join(__dirname,'../templates')
+const templatePath = __dirname
 
 
 app.use(express.json())
